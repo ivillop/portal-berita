@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -43,5 +44,18 @@ class News extends Model
             fn($query, $author) =>
             $query->whereHas('author', fn($query) => $query->where('username', $author))
         );
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($news) {
+            $news->slug = Str::slug($news->title);
+        });
+
+        static::updating(function ($news) {
+            $news->slug = Str::slug($news->title);
+        });
     }
 }
