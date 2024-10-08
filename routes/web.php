@@ -12,27 +12,17 @@ Route::get('/', function () {
     return view('home', ['news' => News::filter(request(['search', 'category', 'author']))->latest()->get()]);
 });
 
-// Route::get('/', function () {
-//     // Cek apakah pengguna sudah login
-//     if (Auth::check()) {
-//         return view('home', [
-//             'news' => News::filter(request(['search', 'category', 'author']))->latest()->get()
-//         ]);
-//     } else {
-//         return redirect()->route('login');
-//     }
-// });
-
 Route::get('/detail/{news:slug}', function (News $news) {
     return view('detail', ['news' => $news]);
 });
 
-Route::post('/', function (Request $request) {
+Route::post('/dashboard', function (Request $request) {
     News::create($request->validate([
         'title' => 'required|string|max:255',
+        'slug' => 'required|unique:news,slug',
         'body' => 'required',
-        'author' => 'required|string|max:255',
-        'category' => 'required|in:Berita,Bisnis,Olahraga,Kesehatan', // Validasi kategori
+        'author_id' => 'required',
+        'category_id' => 'required',
     ]));
 
     return redirect('/dashboard')->with('success', 'News added successfully!');
@@ -41,7 +31,8 @@ Route::post('/', function (Request $request) {
 Route::put('/detail/{id}', function (Request $request, $id) {
     $validatedData = $request->validate([
         'title' => 'required|max:255',
-        'body' => 'required|string',
+        'slug' => '',
+        'body' => 'required',
         'author_id' => 'required',
         'category_id' => 'required',
     ]);
@@ -94,8 +85,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 Route::get('/dashboard', function () {
     if (Auth::check()) {
         // Mengambil semua data berita dan menghitung jumlah berita
-        $news = News::all();
-        $totalNews = $news->count();
+        $news = News::paginate(5);
+        $totalNews = News::count();
         $user = Auth::user();
 
         return view('dashboard', [

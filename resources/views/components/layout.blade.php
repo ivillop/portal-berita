@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,5 +19,4 @@
     <x-footer></x-footer>
     <script src="{{ asset('js/script.js') }}"></script>
 </body>
-
 </html>
