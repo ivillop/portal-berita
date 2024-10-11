@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class News extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'author', 'slug', 'image', 'body'];
+    protected $fillable = ['title', 'author', 'slug', 'image', 'body', 'author_id', 'category_id'];
 
     protected $with = ['author', 'category'];
 

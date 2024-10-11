@@ -21,7 +21,7 @@
                         class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Search">
                 </div>
-                <x-create-news action="/{{ $news }}" method="POST" class="inline" :news="$news"></x-create-news>
+                <x-create-news action="/dashboard" method="POST" class="inline" :news="$news" enctype="multipart/form-data"></x-create-news>
             </div>
             <div class="mx-4 mb-4">
                 {{ $news->links() }}
@@ -31,6 +31,7 @@
                     <tr>
                         <th class="px-6 py-3">Judul</th>
                         <th class="px-6 py-3">Slug</th>
+                        <th class="px-6 py-3">Gambar</th>
                         <th class="px-6 py-3">Isi</th>
                         <th class="px-6 py-3">Penulis</th>
                         <th class="px-6 py-3">Kategori</th>
@@ -42,11 +43,18 @@
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">{{ $item->title }}</td>
                             <td class="px-6 py-4">{{ $item->slug }}</td>
+                            <td class="px-6 py-2">
+                                @if (filter_var($item->image, FILTER_VALIDATE_URL))
+                                    <img src="{{ $item->image }}" alt="Image of {{ $item->title }}" class="w-full h-auto mt-2">
+                                @else
+                                    <img src="{{ asset('storage/' . $item->image) }}" alt="Image of {{ $item->title }}" class="w-full h-auto mt-2">
+                                @endif
+                            </td>
                             <td class="px-6 py-4">{{ Str::limit($item->body, 50) }}</td>
                             <td class="px-6 py-4">{{ $item->author->name }}</td>
                             <td class="px-6 py-4">{{ $item->category->name }}</td>
-                            <td class="px-6 py-4 flex flex-col items-center gap-2">
-                                <x-edit-news action="/detail/{{ $item->id }}" method="POST" class="p-4 md:p-5" :item="$item"></x-edit-news>
+                            <td class="px-6 py-16 flex flex-col items-center gap-2">
+                                <x-edit-news action="/detail/{{ $item->id }}" method="POST" class="p-4 md:p-5" :item="$item" enctype="multipart/form-data" ></x-edit-news>
                                 <x-delete-news action="/detail/{{ $item->id }} " method="POST" class="inline" :item="$item"></x-delete-news>
                             </td>
                         </tr>

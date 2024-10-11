@@ -1,3 +1,5 @@
+@props(['news'])
+
 <button data-modal-target="create-modal" data-modal-toggle="create-modal"
     class="bg-green-200 hover:bg-green-300 px-4 p-1 rounded flex gap-2 items-center" type="button" href="/detail/create">
     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -29,7 +31,7 @@ Create News
             </div>
 
             <!-- Modal body -->
-            <form action="/dashboard" method="POST" class="p-4 md:p-5">
+            <form {{ $attributes }}>
                 @csrf
                 <div class="grid gap-4 mb-4 grid-cols-2">
                     <div class="col-span-2">
@@ -49,7 +51,7 @@ Create News
                         value="{{ Auth::user()->id }}" required="">
 
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="author" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        <label for="author_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Penulis
                         </label>
                         <input type="text"
@@ -68,6 +70,12 @@ Create News
                             <option value="3">Olahraga</option>
                             <option value="4">Kesehatan</option>
                         </select>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Gambar</label>
+                        <input type="file" name="image" id="image"
+                            class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400">
                     </div>
 
                     <div class="col-span-2">
