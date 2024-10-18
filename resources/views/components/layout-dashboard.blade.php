@@ -9,6 +9,8 @@
 </head>
 <body>
     {{ $slot }}
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/generate-slug.js') }}"></script>
+    <script src="{{ asset('js/modal.js') }}"></script>
+    <script src="{{ asset('js/search-table.js') }}"></script>
 </body>
 </html>

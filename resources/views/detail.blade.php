@@ -12,8 +12,13 @@
         </div>
         <p class="text-sm text-gray-400">{{ $news->created_at->diffForHumans() }}</p>
         <div class="flex flex-col items-center">
-            <img class="rounded" src="{{ $news->image }}" alt="{{ $news->image }}">
+            @if (filter_var($news->image, FILTER_VALIDATE_URL))
+                <img class="rounded" src="{{ $news->image }}" alt="{{ $news->image }}">
+            @else
+                <img class="rounded" src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->image }}">
+            @endif
         </div>
+
         <p>{{ $news->body }}</p>
         <div class="mt-4">
             <h2 class="text-lg font-medium">Feedback</h2>
@@ -24,7 +29,6 @@
                         <textarea id="comment" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a feedback..." required></textarea>
                     </div>
                     <div class="flex md:items-center items-start justify-between md:flex-row flex-col gap-2 px-3 py-2 border-t dark:border-gray-600">
-                        <!-- Tambahan input untuk nama atau anonim -->
                         <div class="flex md:items-center md:flex-row flex-col gap-2 w-full">
                             <label for="name" class="text-sm text-gray-700 dark:text-gray-300">Nama (Opsional):</label>
                             <input type="text" id="name" class=" text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Anonim" />
