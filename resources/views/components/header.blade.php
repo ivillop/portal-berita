@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="sm:hidden">
-        <div class="fixed right-0 w-full gap-4 bg-white py-2 bottom-0 flex justify-evenly border-t z-10">
+        <div class="fixed right-0 w-full gap-4 bg-white py-2 bottom-0 flex items-center justify-evenly border-t z-10">
             <x-nav-link-mobile href='/' :active="request()->is('/')">
                 <x-icon-berita></x-icon-berita>
                 Berita
@@ -16,6 +16,22 @@
                 <x-icon-bisnis></x-icon-bisnis>
                 Bisnis
             </x-nav-link-mobile>
+            @if(auth()->check())
+            <a href="/dashboard" class="bg-green-600 text-white text-xs p-1 px-2 rounded hover:bg-green-500 flex flex-col items-center">
+                <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M13.5 2c-.178 0-.356.013-.492.022l-.074.005a1 1 0 0 0-.934.998V11a1 1 0 0 0 1 1h7.975a1 1 0 0 0 .998-.934l.005-.074A7.04 7.04 0 0 0 22 10.5 8.5 8.5 0 0 0 13.5 2Z"/>
+                    <path d="M11 6.025a1 1 0 0 0-1.065-.998 8.5 8.5 0 1 0 9.038 9.039A1 1 0 0 0 17.975 13H11V6.025Z"/>
+                  </svg>
+                  Dashboard
+            </a>
+        @else
+            <a href="/login" class="bg-blue-600 text-white text-xs p-1  px-2 rounded hover:bg-blue-500 flex flex-col items-center">
+                <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
+                  </svg>
+                  Sign Up
+            </a>
+        @endif
             <x-nav-link-mobile href='/olahraga' :active="request()->is('olahraga')">
                 <x-icon-olahraga></x-icon-olahraga>
                 Olahraga

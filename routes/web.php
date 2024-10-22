@@ -104,6 +104,17 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
+Route::post('/update-comment-count', function (Request $request) {
+    $newsId = $request->input('newsId');
+    $commentCount = $request->input('count');
+
+    // Simpan total komentar di session (atau di database jika perlu)
+    session()->put("comments_count_{$newsId}", $commentCount);
+
+    return response()->json(['success' => true]);
+});
+
+
 Route::get('/dashboard', function () {
     if (Auth::check()) {
         // Mengambil semua data berita dan menghitung jumlah berita
