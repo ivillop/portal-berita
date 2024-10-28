@@ -18,7 +18,6 @@ Route::get('/detail/{news:slug}', function (News $news) {
 });
 
 Route::post('/dashboard', function (Request $request) {
-    // dd($request);
     $slug = $request->input('title');
 
     $validatedData = $request->validate([
@@ -30,7 +29,6 @@ Route::post('/dashboard', function (Request $request) {
         'category_id' => 'required',
     ]);
 
-    // Menangani upload gambar
     if ($request->hasFile('image')) {
         $imagePath = $request->file('image')->store('images', 'public'); // Simpan di storage/public/images
         $validatedData['image'] = $imagePath; // Simpan path gambar ke database
