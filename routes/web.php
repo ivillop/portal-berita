@@ -3,6 +3,7 @@
 use App\Models\News;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Comment; // Pastikan model Comment telah diimpor jika belum
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,7 @@ Route::get('/', function () {
 });
 
 Route::get('/detail/{news:slug}', function (News $news) {
+    $news->increment('views');
     return view('detail', ['news' => $news]);
 });
 
@@ -102,28 +104,21 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::post('/update-comment-count', function (Request $request) {
-    $newsId = $request->input('newsId');
-    $commentCount = $request->input('count');
-
-    // Simpan total komentar di session (atau di database jika perlu)
-    session()->put("comments_count_{$newsId}", $commentCount);
-
-    return response()->json(['success' => true]);
-});
-
-
 Route::get('/dashboard', function () {
     if (Auth::check()) {
         // Mengambil semua data berita dan menghitung jumlah berita
         $news = News::latest()->paginate(5);
         $totalNews = News::count();
+        $totalViews = News::sum('views'); // Menghitung total views dari semua berita
+        $totalComments = Comment::count(); // Menghitung total komentar dari semua berita
         $user = Auth::user();
 
         return view('dashboard', [
             'user' => $user,
             'news' => $news,
             'totalNews' => $totalNews,
+            'totalViews' => $totalViews,
+            'totalComments' => $totalComments,
         ]);
     }
 
