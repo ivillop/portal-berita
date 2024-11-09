@@ -3,82 +3,14 @@
 use App\Models\News;
 use App\Models\User;
 use App\Models\Category;
-use App\Models\Comment; // Pastikan model Comment telah diimpor jika belum
+use App\Models\Comment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('home', ['news' => News::filter(request(['search', 'category', 'author']))->latest()->get()]);
-});
-
-Route::get('/detail/{news:slug}', function (News $news) {
-    $news->increment('views');
-    return view('detail', ['news' => $news]);
-});
-
-Route::post('/dashboard', function (Request $request) {
-    $slug = $request->input('title');
-
-    $validatedData = $request->validate([
-        'title' => 'required|string|max:255',
-        'slug' => 'nullable',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk gambar
-        'body' => 'required',
-        'author_id' => 'required',
-        'category_id' => 'required',
-    ]);
-
-    if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('images', 'public'); // Simpan di storage/public/images
-        $validatedData['image'] = $imagePath; // Simpan path gambar ke database
-    }
-
-    $validateData['slug'] = $slug;
-
-    News::create($validatedData);
-
-    return redirect('/dashboard')->with('success', 'News added successfully!');
-})->middleware('auth');
-
-Route::put('/detail/{id}', function (Request $request, $id) {
-    $validatedData = $request->validate([
-        'title' => 'required|max:255',
-        'slug' => '',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
-        'body' => 'required',
-        'author_id' => 'required',
-        'category_id' => 'required',
-    ]);
-
-    // Menangani upload gambar
-    if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('images', 'public');
-        $validatedData['image'] = $imagePath;
-    }
-
-    News::where('id', $id)->update($validatedData);
-
-    return redirect('/dashboard')->with('success', 'News updated successfully!');
-})->middleware('auth');
-
-Route::delete('/detail/{id}', function ($id) {
-    $news = News::findOrFail($id);
-    $news->delete();
-
-    return redirect('/dashboard')->with('success', 'News deleted successfully!');
-})->middleware('auth');
-
-Route::get('/authors/{user:username}', function (User $user) {
-    // $news = $user->news->load('category', 'author');
-    return view('home', ['title' => count($user->news) . ' Article by ' . $user->name, 'home' => $user->news]);
-});
-
-Route::get('/categories/{category:slug}', function (Category $category) {
-    // $news = $category->news->load('category', 'author');
-    return view('home', ['title' => 'Article in Category ' . $category->name, 'home' => $category->news]);
 });
 
 Route::get('/bisnis', function () {
@@ -96,21 +28,31 @@ Route::get('/kesehatan', function () {
     return view('health', ['news' => $category->news()->latest()->get()]);
 });
 
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
+Route::get('/authors/{user:username}', function (User $user) {
+    return view('home', ['title' => count($user->news) . ' Article by ' . $user->name, 'home' => $user->news]);
+});
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+Route::get('/categories/{category:slug}', function (Category $category) {
+    return view('home', ['title' => 'Article in Category ' . $category->name, 'home' => $category->news]);
+});
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('/detail/{news:slug}', function (News $news) {
+    $news->increment('views');
+    $comments = $news->comments()->paginate(5);
+    $totalComments = $news->comments()->count();
+    return view('detail', [
+        'news' => $news,
+        'comments' => $comments,
+        'allComment' =>$totalComments
+    ]);
+});
 
 Route::get('/dashboard', function () {
     if (Auth::check()) {
-        // Mengambil semua data berita dan menghitung jumlah berita
         $news = News::latest()->paginate(5);
         $totalNews = News::count();
-        $totalViews = News::sum('views'); // Menghitung total views dari semua berita
-        $totalComments = Comment::count(); // Menghitung total komentar dari semua berita
+        $totalViews = News::sum('views');
+        $totalComments = Comment::count();
         $user = Auth::user();
 
         return view('dashboard', [
@@ -124,3 +66,84 @@ Route::get('/dashboard', function () {
 
     return redirect()->route('login');
 })->middleware('auth')->name('dashboard');
+
+Route::post('/detail/{news:slug}/comment', function (Request $request, News $news) {
+    $request->validate([
+        'comment' => 'required|string',
+        'name' => 'nullable|max:255',
+    ]);
+
+    if ($request->input('name') == null) {
+        Comment::create([
+            'news_id' => $news->id,
+            'comment' => $request->input('comment'),
+            'name' => 'Anonim',
+        ]);
+    } else {
+        Comment::create([
+            'news_id' => $news->id,
+            'comment' => $request->input('comment'),
+            'name' => $request->input('name'),
+        ]);
+    }
+    return redirect()->back();
+});
+
+Route::post('/dashboard', function (Request $request) {
+    $slug = $request->input('title');
+
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'slug' => 'nullable',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'body' => 'required',
+        'author_id' => 'required',
+        'category_id' => 'required',
+    ]);
+
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('images', 'public');
+        $validatedData['image'] = $imagePath;
+    }
+
+    $validateData['slug'] = $slug;
+
+    News::create($validatedData);
+
+    return redirect('/dashboard')->with('success', 'News added successfully!');
+})->middleware('auth');
+
+Route::put('/detail/{id}', function (Request $request, $id) {
+    $validatedData = $request->validate([
+        'title' => 'required|max:255',
+        'slug' => '',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'body' => 'required',
+        'author_id' => 'required',
+        'category_id' => 'required',
+    ]);
+
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('images', 'public');
+        $validatedData['image'] = $imagePath;
+    }
+
+    News::where('id', $id)->update($validatedData);
+
+    return redirect('/dashboard')->with('success', 'News updated successfully!');
+})->middleware('auth');
+
+Route::delete('/detail/{id}', function ($id) {
+    $news = News::findOrFail($id);
+    $news->delete();
+
+    return redirect('/dashboard')->with('success', 'News deleted successfully!');
+})->middleware('auth');
+
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');

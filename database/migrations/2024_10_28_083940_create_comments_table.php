@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('news_id')->constrained()->onDelete('cascade'); // Relasi ke berita
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null'); // Relasi ke user (optional)
             $table->string('name')->default('Anonim'); // Nama pengirim komentar
-            $table->text('body'); // Isi komentar
+            $table->text('comment'); // Isi komentar
             $table->timestamps();
         });
     }

@@ -57,7 +57,8 @@
                     <tr>
                         <th class="px-6 py-3">Judul</th>
                         <th class="px-6 py-3">Slug</th>
-                        <th class="px-6 py-3">Jumlah View</th>
+                        <th class="px-6 py-3">View</th>
+                        <th class="px-6 py-3">Komentar</th>
                         <th class="px-6 py-3">Gambar</th>
                         <th class="px-6 py-3">Isi</th>
                         <th class="px-6 py-3">Penulis</th>
@@ -66,11 +67,15 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        // dd($news);
+                    @endphp
                     @foreach ($news as $item)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">{{ $item->title }}</td>
                             <td class="px-6 py-4">{{ $item->slug }}</td>
                             <td class="px-6 py-4">{{ $item->views }}</td>
+                            <td class="px-6 py-4">{{ $item->comments->count() }}</td>
                             <x-view-image-news :item="$item"></x-view-image-news>
                             <td class="px-6 py-4">{{ Str::limit($item->body, 50) }}</td>
                             <td class="px-6 py-4">{{ $item->author->name }}</td>

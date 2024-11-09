@@ -11,9 +11,7 @@
 <div id="edit-modal-{{ $item->id }}" tabindex="-1" aria-hidden="true"
     class="bg-black bg-opacity-75 opacity-0 pointer-events-none transition-opacity duration-300 overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center">
     <div class="relative w-full max-w-md max-h-full transition-transform duration-300 transform scale-90">
-        <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 p-4">
-            <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                     Edit Berita
@@ -29,7 +27,6 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <!-- Modal body -->
             <form {{ $attributes }}>
                 @csrf
                 @method('PUT')

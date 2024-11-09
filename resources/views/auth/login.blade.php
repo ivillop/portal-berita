@@ -1,6 +1,6 @@
 <x-layout-auth>
     <section class="bg-gray-50 dark:bg-gray-900">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
+        <div class="flex flex-col items-center justify-center px-6 py-16 mx-auto">
             <a href="#" class="flex items-center mb-3">
                 <img class="w-72" src="{{ asset('img/banner-logo.png') }}" alt="logo">
             </a>

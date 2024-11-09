@@ -12,6 +12,5 @@
     <script src="{{ asset('js/generate-slug.js') }}"></script>
     <script src="{{ asset('js/modal.js') }}"></script>
     <script src="{{ asset('js/search-table.js') }}"></script>
-    <script src="{{ asset('js/comment.js') }}"></script>
 </body>
 </html>
