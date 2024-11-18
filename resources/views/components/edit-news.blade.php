@@ -55,10 +55,12 @@
                         <select id="category_id" name="category_id" required=""
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             <option selected="">Pilih Kategori</option>
-                            <option value="1" {{ $item->category_id == 1 ? 'selected' : '' }}>Berita</option>
-                            <option value="2" {{ $item->category_id == 2 ? 'selected' : '' }}>Bisnis</option>
-                            <option value="3" {{ $item->category_id == 3 ? 'selected' : '' }}>Olahraga</option>
-                            <option value="4" {{ $item->category_id == 4 ? 'selected' : '' }}>Kesehatan</option>
+                            <option value="1" {{ $item->category_id == 1 ? 'selected' : '' }}>Bisnis</option>
+                            <option value="2" {{ $item->category_id == 2 ? 'selected' : '' }}>Olahraga</option>
+                            <option value="3" {{ $item->category_id == 3 ? 'selected' : '' }}>Kesehatan</option>
+                            <option value="4" {{ $item->category_id == 4 ? 'selected' : '' }}>Teknologi</option>
+                            <option value="5" {{ $item->category_id == 5 ? 'selected' : '' }}>Politik</option>
+                            <option value="6" {{ $item->category_id == 6 ? 'selected' : '' }}>Sains</option>
                         </select>
                     </div>
 

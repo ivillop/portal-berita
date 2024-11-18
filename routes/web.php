@@ -28,6 +28,21 @@ Route::get('/kesehatan', function () {
     return view('health', ['news' => $category->news()->latest()->get()]);
 });
 
+Route::get('/teknologi', function () {
+    $category = Category::where('slug', 'teknologi')->firstOrFail();
+    return view('technology', ['news' => $category->news()->latest()->get()]);
+});
+
+Route::get('/politik', function () {
+    $category = Category::where('slug', 'politik')->firstOrFail();
+    return view('political', ['news' => $category->news()->latest()->get()]);
+});
+
+Route::get('/sains', function () {
+    $category = Category::where('slug', 'sains')->firstOrFail();
+    return view('science', ['news' => $category->news()->latest()->get()]);
+});
+
 Route::get('/authors/{user:username}', function (User $user) {
     return view('home', ['title' => count($user->news) . ' Article by ' . $user->name, 'home' => $user->news]);
 });
@@ -95,7 +110,7 @@ Route::post('/dashboard', function (Request $request) {
     $validatedData = $request->validate([
         'title' => 'required|string|max:255',
         'slug' => 'nullable',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         'body' => 'required',
         'author_id' => 'required',
         'category_id' => 'required',
@@ -106,18 +121,19 @@ Route::post('/dashboard', function (Request $request) {
         $validatedData['image'] = $imagePath;
     }
 
-    $validateData['slug'] = $slug;
+    $validatedData['slug'] = $slug;
 
     News::create($validatedData);
 
     return redirect('/dashboard')->with('success', 'News added successfully!');
 })->middleware('auth');
 
+
 Route::put('/detail/{id}', function (Request $request, $id) {
     $validatedData = $request->validate([
         'title' => 'required|max:255',
         'slug' => '',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         'body' => 'required',
         'author_id' => 'required',
         'category_id' => 'required',

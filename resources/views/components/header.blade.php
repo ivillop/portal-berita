@@ -1,6 +1,8 @@
 <header>
     <div class="flex justify-center">
-        <img class="w-72 object-cover" src="{{ asset('img/banner-logo.png') }}" alt="winnicode-logo">
+        <a href="./">
+            <img class="w-72 object-cover" src="{{ asset('img/banner-logo.png') }}" alt="winnicode-logo">
+        </a>
         <div class="absolute top-0 left-0 hidden md:block md:pl-10 lg:pl-20 pt-5">
             <p id="current-date"></p>
             <p id="current-time"></p>
@@ -47,10 +49,12 @@
 <div class="sticky top-0 hidden sm:block bg-white py-3 z-10">
     <div class="border-b-4 border-double border-current py-1">
         <nav class="flex h-6 gap-6 justify-center" aria-label="Tabs">
-            <x-nav-link href='/' :active="request()->is('/')">Berita</x-nav-link>
             <x-nav-link href='/bisnis' :active="request()->is('bisnis')">Bisnis</x-nav-link>
             <x-nav-link href='/olahraga' :active="request()->is('olahraga')">Olahraga</x-nav-link>
-            <x-nav-link href='/kesehatan' :active="request()->is('kesehatan')">Kesehatan </x-nav-link>
+            <x-nav-link href='/kesehatan' :active="request()->is('kesehatan')">Kesehatan</x-nav-link>
+            <x-nav-link href='/teknologi' :active="request()->is('teknologi')">Teknologi</x-nav-link>
+            <x-nav-link href='/politik' :active="request()->is('politik')">Politik</x-nav-link>
+            <x-nav-link href='/sains' :active="request()->is('sains')">Sains</x-nav-link>
             @if(auth()->check())
                 <a href="/dashboard" class="bg-green-600 absolute top-2 right-0 text-white p-1 px-4 rounded hover:bg-green-500 flex items-center gap-2">
                     <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">

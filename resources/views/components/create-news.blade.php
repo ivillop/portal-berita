@@ -52,10 +52,12 @@
                         <select id="category_id" name="category_id" required=""
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                             <option selected="">Pilih Kategori</option>
-                            <option value="1">Berita</option>
-                            <option value="2">Bisnis</option>
-                            <option value="3">Olahraga</option>
-                            <option value="4">Kesehatan</option>
+                            <option value="1">Bisnis</option>
+                            <option value="2">Olahraga</option>
+                            <option value="3">Kesehatan</option>
+                            <option value="4">Teknologi</option>
+                            <option value="5">Politik</option>
+                            <option value="6">Sains</option>
                         </select>
                     </div>
 

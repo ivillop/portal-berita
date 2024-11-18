@@ -1,16 +1,20 @@
 <footer class="border-t border-current flex flex-col md:flex-row md:gap-4 pt-3 pb-20 md:py-3 md:justify-between">
     <div class="flex md:flex-row flex-col gap-2 md:gap-8">
         <div class="flex flex-col gap-2">
-            <img class="md:w-80 w-full m-0 md:-ml-14" src="{{ asset('img/banner-logo.png') }}" alt="winnicode-logo">
+            <a href="/">
+                <img class="md:w-80 w-full m-0 md:-ml-14" src="{{ asset('img/banner-logo.png') }}" alt="winnicode-logo">
+            </a>
             <p class="text-sm">Alamat Pusat: Bandung, Bandung</p>
             <p class="text-sm">Alamat Cabang: Bantul, Yogyakarta</p>
         </div>
         <div class="flex flex-col gap-2 pt-3">
             <p class="font-medium">Navigasi</p>
-            <a class="text-sm hover:text-blue-500" href='/'>Berita</a>
             <a class="text-sm hover:text-blue-500" href='/bisnis'>Bisnis</a>
             <a class="text-sm hover:text-blue-500" href='/olahraga'>Olahraga</a>
             <a class="text-sm hover:text-blue-500" href='/kesehatan'>Kesehatan </a>
+            <a class="text-sm hover:text-blue-500" href='/teknologi'>Teknologi </a>
+            <a class="text-sm hover:text-blue-500" href='/politik'>Politik </a>
+            <a class="text-sm hover:text-blue-500" href='/sains'>Sains </a>
         </div>
     </div>
     <div class="flex flex-col gap-2 pt-3">

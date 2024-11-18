@@ -23,7 +23,7 @@ return new class extends Migration
                 indexName: 'news_category_id'
             );
             $table->string('slug')->unique();
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->text('body');
             $table->timestamps();
         });

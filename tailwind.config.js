@@ -64,5 +64,5 @@ export default {
         },
     },
     plugins: [require("flowbite/plugin")],
-    safelist: ["bg-red-200", "bg-blue-200", "bg-green-200", "bg-yellow-200"],
+    safelist: ["bg-red-200", "bg-blue-200", "bg-green-200", "bg-yellow-200", "bg-gray-200", "bg-indigo-200"],
 };
