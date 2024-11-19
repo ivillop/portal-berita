@@ -10,7 +10,7 @@
     <title>Portal Berita</title>
 </head>
 
-<body class="px-10 lg:px-52">
+<body class="px-10 xl:px-52">
     <x-header></x-header>
     <div class="py-0.5"></div>
     <main class="py-4 flex gap-4 flex-col">

@@ -1,6 +1,6 @@
 <header>
     <div class="flex justify-center">
-        <a href="./">
+        <a href="/">
             <img class="w-72 object-cover" src="{{ asset('img/banner-logo.png') }}" alt="winnicode-logo">
         </a>
         <div class="absolute top-0 left-0 hidden md:block md:pl-10 lg:pl-20 pt-5">
@@ -44,7 +44,6 @@
             </x-nav-link-mobile>
         </div>
     </div>
-
 </header>
 <div class="sticky top-0 hidden sm:block bg-white py-3 z-10">
     <div class="border-b-4 border-double border-current py-1">
