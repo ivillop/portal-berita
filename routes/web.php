@@ -148,7 +148,7 @@ Route::get("/detail/{news:slug}", function (News $news) {
 
 Route::get("/dashboard", function () {
     if (Auth::check()) {
-        $news = News::latest()->paginate(5);
+        $news = News::latest()->paginate(10);
         $totalNews = News::count();
         $totalViews = News::sum("views");
         $totalComments = Comment::count();
