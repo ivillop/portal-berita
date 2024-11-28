@@ -19,5 +19,6 @@
     <x-footer></x-footer>
     <script src="{{ asset('js/update-time.js') }}"></script>
     <script src="{{ asset('js/generate-slug.js') }}"></script>
+    <script src="{{ asset('js/drawer.js') }}"></script>
 </body>
 </html>

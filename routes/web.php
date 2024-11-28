@@ -139,10 +139,18 @@ Route::get("/detail/{news:slug}", function (News $news) {
     $news->increment("views");
     $comments = $news->comments()->paginate(5);
     $totalComments = $news->comments()->count();
+
+    $relatedNews = News::where('category_id', $news->category_id)
+    ->where('id', '!=', $news->id)
+    ->latest()
+    ->take(5)
+    ->get();
+
     return view("detail", [
         "news" => $news,
         "comments" => $comments,
         "allComment" => $totalComments,
+        "relatedNews" => $relatedNews,
     ]);
 });
 

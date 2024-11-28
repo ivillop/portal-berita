@@ -18,8 +18,29 @@
                 <img class="rounded" src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->image }}">
             @endif
         </div>
-
         <p>{{ $news->body }}</p>
+
+        <div class="mt-6">
+            <h2 class="text-lg font-medium">Berita Relevan</h2>
+            <div class="flex flex-col gap-4 mt-4">
+                @forelse ($relatedNews as $related)
+                    <a href="/detail/{{ $related->slug }}" class="flex items-center gap-4 p-4 bg-gray-100 rounded hover:bg-gray-200">
+                        @if (filter_var($related->image, FILTER_VALIDATE_URL))
+                            <img class="w-16 h-16 rounded object-cover" src="{{ $related->image }}" alt="{{ $related->title }}">
+                        @else
+                            <img class="w-16 h-16 rounded object-cover" src="{{ asset('storage/' . $related->image) }}" alt="{{ $related->title }}">
+                        @endif
+                        <div class="flex-1">
+                            <h3 class="text-sm font-medium text-gray-800">{{ $related->title }}</h3>
+                            <p class="text-xs text-gray-600">{{ $related->created_at->diffForHumans() }}</p>
+                        </div>
+                    </a>
+                @empty
+                    <p class="text-sm text-gray-500">Tidak ada berita relevan ditemukan.</p>
+                @endforelse
+            </div>
+        </div>
+
         <div class="mt-4">
             <h2 class="text-lg font-medium">Feedback</h2>
             <form action="/detail/{{ $news->slug }}/comment" method="POST">
