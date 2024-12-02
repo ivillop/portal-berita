@@ -10,7 +10,7 @@
     </div>
 
 </header>
-<div class="sticky top-0 bg-white lg:hidden">
+<div class="sticky top-0 z-10 bg-white lg:hidden">
     <div class="relative flex items-center justify-between p-4 border-b-4 border-double border-current">
         <!-- Button for toggling the mobile menu -->
         <button id="menu-toggle" class="rounded-lg p-1 text-gray-700 focus:outline-none">
