@@ -1,6 +1,6 @@
 # Portal Berita
 
-Portal Berita adalah sebuah aplikasi berbasis web yang dikembangkan menggunakan framework Laravel 11. Aplikasi ini memungkinkan pengguna untuk membaca berita dari berbagai kategori seperti Berita, Bisnis, Olahraga, dan Kesehatan. Selain itu, terdapat fitur-fitur seperti komentar, total jumlah view, dan autentikasi pengguna.
+Portal Berita adalah sebuah aplikasi berbasis web yang dikembangkan menggunakan framework Laravel 11. Aplikasi ini memungkinkan pengguna untuk membaca berita dari berbagai kategori seperti Berita, Bisnis, Olahraga, maupun Kesehatan. Selain itu, terdapat fitur-fitur seperti komentar, total jumlah view, dan autentikasi pengguna.
 
 ## Fitur Utama
 
@@ -75,25 +75,6 @@ php artisan serve
 ```
 
 Akses aplikasi melalui [http://localhost:8000](http://localhost:8000).
-
-## Fitur Tambahan
-
-- **Frontend Styling:** Anda dapat menambahkan framework CSS seperti Tailwind atau Bootstrap sesuai kebutuhan.
-- **Unit Testing:** Jalankan perintah berikut untuk menguji aplikasi:
-
-```bash
-php artisan test
-```
-
-## Kontribusi
-
-Jika Anda ingin berkontribusi pada proyek ini, silakan fork repository, buat branch baru, dan kirimkan pull request. Kami sangat menghargai kontribusi Anda!
-
-## Lisensi
-
-Proyek ini dilisensikan di bawah [MIT License](LICENSE).
-
----
 
 Terima kasih telah menggunakan Portal Berita. Semoga bermanfaat!
 
