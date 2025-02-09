@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
 Route::get("/", function () {
+    $searchResults = News::filter(request(["search"]))
+    ->latest()
+    ->get();
+
     $latestNews = News::filter(request(["search", "category", "author"]))
         ->latest()
         ->take(5)
@@ -58,6 +62,7 @@ Route::get("/", function () {
         "latestNews" => $latestNews,
         "popularNews" => $popularNews,
         "categories" => $categories,
+        "searchResults" => $searchResults,
     ]);
 });
 
