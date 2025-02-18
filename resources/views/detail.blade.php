@@ -18,7 +18,7 @@
                 <img class="rounded" src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->image }}">
             @endif
         </div>
-        <p>{{ $news->body }}</p>
+        <p class="text-justify">{{ $news->body }}</p>
 
         <div class="mt-6">
             <h2 class="text-lg font-medium">Berita Relevan</h2>
