@@ -32,7 +32,7 @@
                 Dashboard
             </a>
         @else
-            <a href="/login" class="rounded flex items-center gap-2 p-1 px-4 bg-blue-600 text-white hover:bg-blue-500">
+            <a href="/login" class="rounded hidden items-center gap-2 p-1 px-4 bg-blue-600 text-white hover:bg-blue-500">
                 <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -104,7 +104,7 @@
                 </a>
             @else
                 <a href="/login"
-                    class="bg-blue-600 absolute top-2 right-0 text-white p-1 px-4 rounded hover:bg-blue-500 flex items-center gap-2">
+                    class="bg-blue-600 absolute top-2 right-0 text-white p-1 px-4 rounded hover:bg-blue-500 hidden items-center gap-2">
                     <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                         viewBox="0 0 24 24">
